@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sw_labModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="sw_labModelStoreContainer">
+    <EntitySet Name="tbUsers" EntityType="sw_labModel.Store.tbUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tbTasks" EntityType="sw_labModel.Store.tbTasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tbGroup" EntityType="sw_labModel.Store.tbGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tbUsersTasks" EntityType="sw_labModel.Store.tbUsersTasks" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_tbUsersTasks_tbUsers" Association="sw_labModel.Store.FK_tbUsersTasks_tbUsers">
+      <End Role="tbUsers" EntitySet="tbUsers" />
+      <End Role="tbUsersTasks" EntitySet="tbUsersTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbUsersTasks_tbTasks" Association="sw_labModel.Store.FK_tbUsersTasks_tbTasks">
+      <End Role="tbTasks" EntitySet="tbTasks" />
+      <End Role="tbUsersTasks" EntitySet="tbUsersTasks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tbUsers">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Username" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbTasks">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Priority" Type="smallint" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
+    <Property Name="Details" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ToDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbUsersTasks">
+    <Key>
+      <PropertyRef Name="tbUsers_UserID" />
+      <PropertyRef Name="tbTasks_TaskId" />
+    </Key>
+    <Property Name="tbUsers_UserID" Type="int" Nullable="false" />
+    <Property Name="tbTasks_TaskId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tbUsersTasks_tbUsers">
+    <End Role="tbUsers" Type="sw_labModel.Store.tbUsers" Multiplicity="1" />
+    <End Role="tbUsersTasks" Type="sw_labModel.Store.tbUsersTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsers">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbUsersTasks">
+        <PropertyRef Name="tbUsers_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbUsersTasks_tbTasks">
+    <End Role="tbUsersTasks" Type="sw_labModel.Store.tbUsersTasks" Multiplicity="*" />
+    <End Role="tbTasks" Type="sw_labModel.Store.tbTasks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="tbTasks">
+        <PropertyRef Name="TaskId" />
+      </Principal>
+      <Dependent Role="tbUsersTasks">
+        <PropertyRef Name="tbTasks_TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

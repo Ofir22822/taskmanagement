@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sw_labModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbUsers">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbTasks" Relationship="sw_labModel.tbUsersTasks" FromRole="tbUsers" ToRole="tbTasks" />
+  </EntityType>
+  <EntityContainer Name="sw_labEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbUsers" EntityType="Self.tbUsers" />
+    <EntitySet Name="tbTasks" EntityType="sw_labModel.tbTasks" />
+    <EntitySet Name="tbGroup" EntityType="sw_labModel.tbGroup" />
+    <AssociationSet Name="tbUsersTasks" Association="sw_labModel.tbUsersTasks">
+      <End Role="tbUsers" EntitySet="tbUsers" />
+      <End Role="tbTasks" EntitySet="tbTasks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tbTasks">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Priority" Type="Int16" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
+    <Property Name="Details" Type="String" Nullable="false" />
+    <Property Name="ToDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tbUsers" Relationship="sw_labModel.tbUsersTasks" FromRole="tbTasks" ToRole="tbUsers" />
+  </EntityType>
+  <EntityType Name="tbGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <Association Name="tbUsersTasks">
+    <End Type="sw_labModel.tbUsers" Role="tbUsers" Multiplicity="*" />
+    <End Type="sw_labModel.tbTasks" Role="tbTasks" Multiplicity="*" />
+  </Association>
+</Schema>

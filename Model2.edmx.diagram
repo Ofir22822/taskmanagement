@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e5b3161148454184a87e3a4b7f713e6d" Name="Diagram1" ZoomLevel="128">
+        <EntityTypeShape EntityType="sw_labModel.tbUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sw_labModel.tbTasks" Width="1.5" PointX="5.125" PointY="1.25" />
+        <EntityTypeShape EntityType="sw_labModel.tbGroup" Width="1.5" PointX="9.125" PointY="2.25" />
+        <AssociationConnector Association="sw_labModel.tbUsersTasks" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

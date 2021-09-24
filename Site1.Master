@@ -1,0 +1,111 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="TaskManagementSystem.Site1" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Task Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- jQuery library -->
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- for setting css class of errors in login, register inputs -->
+    <script src="cssValidator.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <form id="form1" runat="server">
+        <!-- start Navbar -->
+        <div class="bg-dark">
+            <div class="m-auto" style="max-width: 60rem;">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <div class="navbar-brand">
+                        <i class="fa fa-edit text-white h3 m-0 align-middle"></i>
+                        Task Manage
+                    </div>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                        <ul class="navbar-nav">
+                            <%if (Session["user"] == null)
+                                {%>
+                            <li class="nav-item  <%if (Page.Title == "Login")
+                                {%> active <%} %>">
+                                <a class="nav-link" href="Login.aspx">Login</a>
+                            </li>
+                            <li class="nav-item <%if (Page.Title == "Register")
+                                {%> active <%} %>">
+                                <a class="nav-link" href="Register.aspx">Register</a>
+                            </li>
+                            <%}
+                                else
+                                { %>
+                            <li class="nav-item <% if (Page.Title == "Tasks")
+                                {%> active <%} %>">
+                                <a class="nav-link" href="Tasks.aspx">Tasks</a>
+                            </li>
+                            <%}; %>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- END Navbar -->
+
+        <!-- start user message -->
+        <div class="container-fluid p-0 <%if (Session["user"] != null && Page.Title == "User Details") {%>d-none<%}%>">
+            <div class="card bg-light hidden-md-down ml-auto mr-auto mt-3 mb-3" style="max-width: 60rem;">
+                <h4 class="text-center p-0 m-3">
+                    <span runat="server" id="userMsg"></span>
+                    <span runat="server" id="userLogged">
+                        <asp:Button runat="server" ID="btnUserUpdate" Text="Update User Details" OnClick="btnUserUpdate_Click" CssClass="btn btn-sm btn-secondary ml-3" />
+                        <asp:Button runat="server" ID="btnLogout" Text="Logout" OnClick="btnLogout_Click" CssClass="btn btn-sm btn-primary ml-3" />
+                    </span>
+                </h4>
+            </div>
+        </div>
+        <!-- END user message -->
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+
+    <!-- start footer -->
+    <footer id="footer" class="footer mt-auto">
+        <div class="main-footer text-white p-3" style="background: #252525;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        Web Technology Project
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright p-2" style="background: #222;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center text-white-50">
+                        Copyright © <%=DateTime.Now.Year %>. All right reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END footer -->
+
+</body>
+</html>
